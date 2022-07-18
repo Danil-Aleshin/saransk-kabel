@@ -1,0 +1,73 @@
+// .testName{
+//   display: grid;
+//   grid-template-columns: minmax(290px,370px) minmax(200px,800px);
+//   gap: 30px;
+//   justify-content: space-between;
+//   .sort__block{
+//     .sort__item{
+//       position: relative;
+//       background: black;
+//       border-radius:15px;
+//       height: 40px;
+//       // z-index: 4;
+//       &.active{
+//         .sort__options{
+//           max-height: 100vh;
+//           overflow: hidden;
+//           li{
+//             opacity: 1;
+//           pointer-events: all;
+//           }
+//         }
+//       }
+//       h4{
+//         color: white;
+//         text-align: center;
+//         line-height: 2.5;
+//       }
+//       .sort__options{
+//         // position: absolute;
+//         // top: 30px;
+//         // left: 0;
+//         z-index: -1;
+//         max-height: 0;
+//         background: white;
+//         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+//         transition: .5s ease-in-out;
+//         // width: 100%;
+//         li{
+//           padding: 10px 0px 0px 0px;
+//           opacity: 0;
+//           pointer-events: none;
+//           transition: .5s ease-in-out;
+//         }
+//       }
+//     }
+//   }
+// }
+
+// @media (max-width:1023px){
+//   .testName{
+//     flex-direction: column;
+//     grid-template-columns:  100%;
+//     grid-template-rows: max-content max-content;
+//     justify-content: center;
+//   }
+// }
+
+.product__list{
+  max-width: 100%;
+  margin: 0px 0px 60px 0px;
+  
+  .missing-products{
+    &__img{
+      display: block;
+      margin: 0 auto;
+    }
+    &__title{
+      font-size: 24px;
+      text-align: center;
+      margin: 20px 0px 0px 0px;
+    }
+  }
+}

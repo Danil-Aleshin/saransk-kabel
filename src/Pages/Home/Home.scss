@@ -1,0 +1,116 @@
+@import '../../Components/globalStyle.scss';
+
+
+
+.main-page {
+  h2 {
+    color: var(--text-color);
+  }
+  .main-title {
+    display: block;
+    width: fit-content;
+    margin: 40px auto 100px auto;
+    text-align: center;
+    h1 {
+      font-size: 36px;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 15px;
+      color: var(--text-color);
+    }
+    .or-line {
+      margin: 10px auto 10px auto;
+    }
+  }
+  .intro {
+    margin: 0px 0px 100px 0px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .intro__title {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    max-width: 450px;
+    
+  }
+  .intro__text {
+    font-size: 18px;
+    color: var(--text-color);
+  }
+  
+  .intro-img{
+    max-width: 500px;
+    img{
+      width: 100%;
+    }
+  }
+  .intro-second {
+    color: var(--text-color);
+    background: var(--background-color);
+    border-top: 2px solid #fcb500;
+    border-bottom: 2px solid #fcb500;
+    padding: 0px 0px 15px 0px;
+    margin: 0px 0px 100px 0px;
+    text-align: center;
+    .or-line {
+      margin: 10px auto 10px auto;
+    }
+    // .intro-second__title{
+    //   h2{
+    //     color: #2c2c2c;
+    //   }
+    // }
+  }
+    .product-link {
+      margin: 20px 0px 0px 0px;
+      width: 210px;
+      @include button-link;
+    }
+    
+  .pictures-box{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    max-width: 1920px;
+  }
+  .pictures{
+    max-width: 100%;
+  }
+}
+@media (max-width: $breakpoint__xl) {
+  .main-page{
+    .intro{
+      flex-direction: column;
+      align-items: center;
+      img{
+        margin: 50px 0px 0px 0px;
+      }
+    }
+  }
+}
+.swiper-box{
+  width: 300px;
+}
+.swiper-pagination-bullet-active{
+  background-color: #fcb500;
+
+}
+.swiper-button-prev,.swiper-button-next{
+  color: #fcb500 ;
+}
+@media (max-width: $breakpoint__s){
+  .main-page{
+    .main-title{
+      h1{
+        font-size: 30px;
+      }
+    }
+    .third{
+      margin: 30px 0px 0px 0px;
+    }
+  }
+}

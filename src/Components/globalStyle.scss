@@ -1,0 +1,28 @@
+$color-main: #fcb500;
+$color_2: #e8aa31;
+$colorBlackTheme: #fff;
+$breakpoint__xxl:1200px;
+$breakpoint__xl:1023px;
+$breakpoint__l:767px;
+$breakpoint__m:424px;
+$breakpoint__s:374px;
+@mixin bxsh-yellow {
+  box-shadow: 0 0 10px $color_2;
+}
+@mixin button-link {
+  display: inline-block;
+  background: $color-main;
+  color: white;
+  padding: 10px 25px 10px 25px;
+  text-align: center;
+  cursor: pointer;
+  @include bxsh-yellow();
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 17px;
+  transition: 0.3s;
+  &:hover{
+    transform: translateY(-3px);
+  }
+}
+

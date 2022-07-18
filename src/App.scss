@@ -1,0 +1,53 @@
+.checkbox {
+  display: none;
+  &:checked ~ {
+    .checkbox__title::after{
+      transform: scale(1);
+    }
+  }
+}
+.checkbox__title{
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 16px;
+  position: relative;
+  margin: 0px 0px 0px 20px;
+  &::before{
+    position: absolute;
+    top:3px;
+    left: -20px;
+    content: '';
+    width: 15px;
+    height: 15px;
+    background: white;
+    border-radius: 50%;
+  }
+  &::after{
+    position: absolute;
+    content: '';
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    top: 6px;
+    left: -17px;
+    background: linear-gradient(#fcb500,#e8aa31);
+    transition: .5s;
+    transform: scale(0);
+  }
+
+}
+.security-policy-block{
+  margin: 0px 0px 60px 0px;
+  p{
+    font-size: 17px;
+  }
+}
+.vacancies{
+  .vacancy__title{
+    font-size: 24px;
+  }
+  .vacancy{
+    font-size: 18px;
+    
+  }
+}

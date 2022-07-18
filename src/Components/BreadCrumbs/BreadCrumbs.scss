@@ -1,0 +1,43 @@
+.rev-nav{
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  margin: 0px 0px 60px 0px;
+  height: 25px;
+  white-space: nowrap;
+  overflow-x: auto;
+  &::-webkit-scrollbar{
+    display: none;
+  }
+
+  .nav__item{
+    position: relative;
+    a{
+      color: var(--text-color);
+    }
+    &::after,&::before{
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 2px;
+      background: var(--text-color);
+      right: -18px;
+      border-radius: 10px;
+      transition: background .3s ease-in;
+    }
+    &::after{
+      transform: rotate(45deg);
+      top: 7px;
+    }
+    &::before{
+      transform: rotate(-45deg);
+      top: 12px;;
+    }
+    &:last-child a{
+      color: #FCB500;
+    }
+    &:last-child::after,&:last-child::before{
+      position: relative;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+@import '../../Components/globalStyle.scss';
+
+.stock{
+  margin: 0px 0px 60px 0px;
+}
+.stock__img{
+  max-width: 100%;
+}
+.stock__downloadLink{
+  @include button-link;
+}
+.stock__title{
+  font-size: 24px;
+  margin: 30px 0px 30px 0px;
+}
+.stock__text{
+  font-size: 17px;
+  margin: 0px 0px 30px 0px;
+}

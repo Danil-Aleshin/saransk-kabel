@@ -1,0 +1,12 @@
+
+.product-card__list {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(210px,320px));
+  row-gap: 50px;
+  column-gap: 70px;
+  margin: 60px 0px 70px 0px;
+  
+}
+
+

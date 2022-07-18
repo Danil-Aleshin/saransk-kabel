@@ -1,0 +1,38 @@
+.documents{
+  margin: 0px 0px 60px 0px;
+}
+.documents__list{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.documents__item{
+  transition: .3s;
+  border-radius: 30px;
+  &:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+}
+.documents__link{
+  padding: 20px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+.documents__title{
+  font-size: 24px;
+  text-align: center;
+}
+.documents__img{
+  max-width: 100%;
+}
+
+@media(max-width:767px){
+  .documents__link{
+    flex-direction: column;
+    
+  }
+  .documents__img{
+    margin: 0px 0px 0px 45px;
+  }
+}

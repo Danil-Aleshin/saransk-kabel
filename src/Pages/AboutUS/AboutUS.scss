@@ -1,0 +1,30 @@
+
+.aboutUs-nav {
+  margin: 0px 0px 55px 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 260px);
+  justify-content: center;
+  gap: 30px;
+  
+  .nav__item{
+    transition: .3s;
+    border-radius: 30px;
+    &:hover{
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+  .nav__link{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+  .nav__title{
+    font-size: 24px;
+    text-align: center;
+  }
+  .nav__img{
+    max-width: 100%;
+  }
+}

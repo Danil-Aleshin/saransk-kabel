@@ -1,0 +1,113 @@
+@import '../globalStyle.scss';
+
+.main-slider {
+  z-index: 1;
+  .slider-box {
+    width: 100%;
+    max-height: 320px;
+  }
+  .swiper-slide {
+    position: relative !important;
+    .more-info {
+      @include button-link;
+      position: absolute;
+      top: 69%;
+      left: 59.5%;
+      padding: 10px 40px 10px 40px;
+      z-index: 20;
+      &:hover {
+        transform: translateY(-3px);
+      }
+    }
+    img {
+      width: 100%;
+      max-height: 320px;
+    }
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    background: #ffffff !important;
+    border-radius: 50%;
+    width: 50px !important;
+    height: 50px !important;
+  }
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    color: #fcb500;
+    font-size: 25px !important;
+    font-weight: 900;
+  }
+  .swiper-button-prev::after {
+    position: absolute;
+    left: 17px;
+  }
+  .swiper-button-next::after {
+    position: absolute;
+    right: 17px;
+  }
+  .swiper-pagination-bullet {
+    width: 11px !important;
+    height: 11px !important;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: #fcb500 !important;
+  }
+  .swiper-pagination {
+  }
+}
+@media (max-width: $breakpoint__xl) {
+  .main-slider {
+    .swiper-button-next,
+    .swiper-button-prev {
+      width: 30px !important;
+      height: 30px !important;
+    }
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      font-size: 16px !important;
+    }
+    .swiper-button-prev::after {
+      left: 9.5px;
+    }
+    .swiper-button-next::after {
+      right: 9.5px;
+    }
+    .swiper-pagination {
+      
+    }
+  }
+}
+@media (max-width: $breakpoint__xxl){
+  .main-slider{
+    .swiper-slide{
+      .more-info{
+        left: 59%;
+        padding: 8px 20px 8px 20px;
+      }
+    }
+  }
+}
+@media (max-width: $breakpoint__xl){
+  .main-slider{
+    .swiper-slide{
+      .more-info{
+        left: 59.5%;
+        padding: 3px 6px 3px 6px;
+        font-size: 15px;
+
+      }
+      
+    }
+    // .swiper-pagination{
+    //   display: none;
+    // }
+  }
+}
+@media (max-width: $breakpoint__l) {
+  .main-slider {
+    display: none;
+  }
+}
+
+
+

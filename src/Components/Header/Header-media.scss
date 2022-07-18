@@ -1,0 +1,66 @@
+@import '../globalStyle.scss';
+@media (max-width: $breakpoint__xxl) {
+  .subheader {
+    .logo {
+      width: 480px;
+    }
+  }
+}
+@media (max-width: $breakpoint__xl) {
+  header {
+    .nav__link{
+      font-size: 12.5px;
+    }
+    .nav{
+      
+      .nav__item{
+        margin: 0px 33px 0px 0px;
+        
+      }
+    }
+    .profile {
+      span {
+        display: none;
+      }
+    }
+  }
+  .subheader {
+    .order-info {
+      display: none;
+    }
+    .location {
+      display: none;
+    }
+    .logo {
+      width: 450px;
+    }
+  }
+}
+@media (max-width: $breakpoint__l) {
+  .subheader {
+    display: none;
+  }
+  header {
+    .logo-black-theme {
+      width: 400px;
+      display: block;
+    }
+    .cart__block-mobile {
+      display: block;
+    }
+    .header__inner {
+      gap: 20px;
+    }
+  }
+}
+@media (max-width: $breakpoint__m){
+  header {
+    .logo-black-theme {
+      margin: 6px 0px 0px 0px;
+      width: 160px;
+    }
+  }
+} 
+@media (max-width: $breakpoint__s) {
+  
+}

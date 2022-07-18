@@ -1,0 +1,106 @@
+.nav-mobile {
+  z-index: 15;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  display: none;
+  width: 100%;
+  max-width: 270px;
+  display: flex;
+  background: #141414;
+  height: 100vh;
+  flex-direction: column;
+  gap: 20px;
+  padding: 75px 45px 20px 20px;
+  transition: right 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow-y: auto;
+  
+  &.active--nav-movile {
+    right: 0;
+  }
+  .nav__item {
+    text-transform: uppercase;
+
+    &.active--nav-mobile__item{
+      .drop-menu{
+        max-height: 100vh;
+        opacity: 1;
+        margin: 10px 0px 0px 0px;
+        overflow-y:auto;
+      }
+    }
+    &.active--nav-mobile__item{
+      .arrow::before {
+        top: 10px;
+        left: 5px;
+        transform: rotate(-50deg);
+      }
+      .arrow::after {
+        top: 10px;
+        left: 11px;
+        transform: rotate(50deg);
+      }
+    }
+  }
+  .nav__link {
+    padding: 0px 0px 10px 0px;
+    font-size: 16px;
+    color: white;
+    
+  }
+  .drop-menu {
+    
+    transition: .5s ease-in-out;
+    position: relative;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding: 0px 0px 0px 10px;
+    li {
+      list-style: none;
+      border-top: 1px solid #fcb500;
+      padding: 9px 0px 9px 0px;
+      background: #141414;
+    &:last-child{
+      border-bottom: 1px solid #fcb500;
+    }
+      a {
+        color: white;
+        font-size: 16px;
+        text-transform: uppercase;
+        transition: color 0.3s ease-in-out;
+        &:hover {
+          color: #fcb500;
+        }
+      }
+    }
+  }
+  .arrow{
+    position: relative;
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 2px;
+      background: #fcb500;
+      border-radius: 11px;
+      transition: .3s ease-in-out;
+    }
+    &::before {
+      top: 10px;
+      left: 6.5px;
+      transform: rotate(50deg);
+    }
+    &::after {
+      top: 10px;
+      left: 12px;
+      transform: rotate(-50deg);
+    }
+  }
+
+  
+}
+
+

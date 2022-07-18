@@ -1,0 +1,34 @@
+// import React, { useEffect, useState } from 'react'
+
+// interface IValidations{
+//   isEmpty?: boolean,
+//   minLength?:number,
+//   isEmail?:boolean,
+// }
+// const useValidation = (value:string,validations:IValidations) => {
+//   const [error, setError] = useState(false)
+//   const [minLengthError, setMinLengthError] = useState(false)
+
+//   useEffect(() => {
+//     for (const param:string in validations) {
+//       switch (param) {
+//         case "minLength":
+//            value.length < validations[param] ? setMinLengthError(true) : setMinLengthError(false)
+//           break;
+//         case "isEmpty":
+  
+//           break;
+//       }
+//     }
+//   }, [value])
+  
+//   return {
+//     error
+//   }
+// }
+
+// export default useValidation
+
+// //        const regexp:RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+//         // !regexp.test(value) && value.length > 0 ? setError(true) : setError(false)
