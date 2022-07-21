@@ -1,5 +1,6 @@
 import { userInfo } from "os"
-import { useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 import BreadCrumbs from "../../Components/BreadCrumbs/BreadCrumbs"
 import PageTitle from "../../Components/PageTitle"
 import { useAppDispatch, useAppSelector } from "../../hooks/appRedux"
@@ -8,15 +9,22 @@ import { fetchSignOut } from "../../store/AuthenticationSlice"
 
 const Profile:React.FC = () => {
 
-  const user = useAppSelector(state => state.auth)
+  const auth = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
 
   const navigate = useNavigate()
 
-  const signOut = ()=>{
+  useEffect(() => {
+    if (!auth.userAuth) {
+      navigate(-1)
+    }
+  }, [auth.userAuth])
+
+
+  const signOut = () => {
     dispatch(fetchSignOut())
-    if (user.error) {
-      alert(user.error)
+    if (auth.error) {
+      alert(auth.status)
     }else{
       navigate("/")
     }
@@ -24,8 +32,17 @@ const Profile:React.FC = () => {
   return (
     <main>
       <div className="container">
-        <PageTitle text={user.userInfo?.firstName + " " + user.userInfo?.lastName}/>
+        <PageTitle text={auth.userInfo?.firstName + " " + auth.userInfo?.lastName}/>
         <BreadCrumbs/>
+        <p>
+          email: {auth.userInfo?.email}
+        </p>
+        <p>
+          телефон: {auth.userInfo?.phoneNumber}
+        </p>
+        <p>
+          id: {auth.userInfo?.userId}
+        </p>
         <button onClick={()=>signOut()}>Выйти</button>
       </div>
     </main>

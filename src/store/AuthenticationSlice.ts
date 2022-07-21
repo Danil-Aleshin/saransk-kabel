@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, UserCredential } from 'firebase/auth'
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import { auth, db } from '../firebaseCofig'
-import { IUserData, IUserInfo } from "../types/data";
+import { ICartItem, IOrder, IUserData, IUserInfo } from "../types/data";
 
 interface stateAuthentication{
-  userInfo:IUserInfo | null,
+  userInfo:IUserInfo,
   userAuth:boolean,
   loading:boolean,
-  error:any,
-  // string | null | undefined,
-  status:"loading" | "fulfield" | "rejected" | null,
+  error:boolean,
+  status:string | undefined,
 }
 
 interface propsFetchAuthentication{
@@ -27,24 +26,23 @@ interface propsFetchRegistration{
 
 //state
 const initialState:stateAuthentication = {
-  userInfo:null,
+  userInfo:{} as IUserInfo,
   userAuth: false,
   loading:false,
-  error:null,
-  status:null,
+  error:false,
+  status:"",
 }
 
 //authentication
 export const fetchAuthentication = createAsyncThunk<
-IUserInfo | null,
+IUserInfo,
 propsFetchAuthentication,
 {rejectValue:string}>(
   "authentication/fetchAuthentication",
   async function({loginValue,passwordValue},{rejectWithValue}) {
-    let uInfo:IUserInfo | null = null // retrun value
 
-    await signInWithEmailAndPassword(auth, loginValue, passwordValue)
-    .then(async(userCredential) => { 
+    try {
+      const userCredential:UserCredential = await signInWithEmailAndPassword(auth, loginValue, passwordValue)
       const user = userCredential.user;
       const userID = user.uid
       const docRef = doc(db, "users", userID);
@@ -52,23 +50,16 @@ propsFetchAuthentication,
 
       if (docSnap.exists()) {
         const userData = docSnap.data() as IUserData
-        uInfo = userData.userInfo
-        
+        return userData.userInfo
       } else {
-        console.log("No such document!");
+        return rejectWithValue("No such document!")
       }
-      
-    })
-    .catch((error)=>{
+    } catch (error:any) {
       console.log(error.message)
       console.log(error.code)
-    })
-
-    if (uInfo !== null) {
-      return uInfo
-    }else{
-      return rejectWithValue("Неверный логин или пароль :(")
+      return rejectWithValue(error.code)
     }
+
   }
 )
 
@@ -109,20 +100,13 @@ export const fetchRegistration = createAsyncThunk<any,propsFetchRegistration,{re
 )
 
 //signOut
-export const fetchSignOut = createAsyncThunk<boolean,undefined,{rejectValue:string}>(
+export const fetchSignOut = createAsyncThunk<any,undefined,{rejectValue:string}>(
   "authentication/fetchSignOut",
   async function(_,{rejectWithValue}){
-    let resp: boolean = false
-    signOut(auth).then(() => {
-      resp = true
-    }).catch((error) => {
-      resp = false
-    });
-
-    if (!resp) {
-     return rejectWithValue("Ошибка соединения с сервером :(")
-    }else{
-      return resp
+    try {
+      await signOut(auth)
+    } catch (error) {
+      return rejectWithValue("Ошибка соединения с сервером :(")
     }
   }
 )
@@ -136,45 +120,37 @@ const AuthenticationSlice = createSlice({
     //auth
       .addCase(fetchAuthentication.pending,(state)=>{
         state.loading = true
-        state.status = "loading"
-        state.error = null
+        state.status = "fetchAuthentication loading"
+        state.error = false
         state.userAuth = false
       })
-      .addCase(fetchAuthentication.fulfilled,(state,action:PayloadAction<IUserInfo | null>)=>{
+      .addCase(fetchAuthentication.fulfilled,(state,action:PayloadAction<IUserInfo>)=>{
         state.userInfo = action.payload
         state.userAuth = true
         state.loading = false
-        state.status = "fulfield"
+        state.status = "fetchAuthentication fulfield"
       })
       .addCase(fetchAuthentication.rejected,(state,action)=>{
-        state.error = action.payload
+        state.error = true
         state.loading = false
         state.userAuth = false
-        state.status = "rejected"
+        state.status = action.payload
       })
     //signOut
       .addCase(fetchSignOut.pending,(state)=>{
         state.loading = true
-        state.status = "loading"
-        state.error = null
+        state.status = "fetchSignOut loading"
+        state.error = false
       })
       .addCase(fetchSignOut.fulfilled,(state)=>{
-        console.log("first")
-        state.userInfo = null
+        state.userInfo = {} as IUserInfo
         state.userAuth = false
         state.loading = false
-        state.status = null
-        // const {
-        //   userInfo = null,
-        //   userAuth = false,
-        //   loading = false,
-        //   error = null,
-        //   status = null
-        // } = state
+        state.status = "signOut fulfilled"
       })
       .addCase(fetchSignOut.rejected,(state,action)=>{
-        state.error = action.payload
-        state.status = "rejected"
+        state.error = true
+        state.status = action.payload
       })
   }
 

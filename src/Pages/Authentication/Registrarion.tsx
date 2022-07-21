@@ -1,42 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import './SigIn.scss'
+import { Link, useNavigate } from 'react-router-dom'
+import './SignIn.scss'
 
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/solid'
 import useInput from '../../hooks/useInput'
-import { useAppDispatch } from '../../hooks/appRedux'
+import { useAppDispatch, useAppSelector } from '../../hooks/appRedux'
 import { fetchRegistration } from '../../store/AuthenticationSlice'
-import AuthFormItem from '../AuthFormItem'
+import AuthFormItem from '../../Components/AuthFormItem/AuthFormItem'
 
-interface propsRegistrtion{
-  regWin:boolean,
-  setRegWin:React.Dispatch<React.SetStateAction<boolean>>,
-  setSigInWindowLog:React.Dispatch<React.SetStateAction<boolean>>,
-  setPasswordVisibility:React.Dispatch<React.SetStateAction<boolean>>,
-  passwordVisibility:boolean,
-}
-
-const Registrtion:React.FC<propsRegistrtion> = 
-({ regWin, 
-  setRegWin, 
-  setSigInWindowLog, 
-  setPasswordVisibility, passwordVisibility }) =>{
-
-  const firstName = useInput("")
-  const lastName = useInput("")
-  const phone = useInput("")
-  const email = useInput("")
-  const password = useInput("")
-
-  const firstNameValue = firstName.value
-  const lastNameValue = lastName.value
-  const phoneNumberValue = phone.value
-  const emailValue = email.value
-  const passwordValue = password.value
-
-
-  const dispatch = useAppDispatch()
-
+const Registrarion:React.FC = () => {
+  const [passwordVisibility, setPasswordVisibility] = useState(false)
 
   const [firstNameErorr, setFirstNameErorr] = useState("Некорректное имя")
   const [firstNameDirty, setFirstNameDirty] = useState(false)
@@ -58,8 +31,28 @@ const Registrtion:React.FC<propsRegistrtion> =
   const [registrationError, setRegistrationError] = useState(false)
   const [registrationErrorText, setRegistrationErrorText] = useState("")
 
+  const firstName = useInput("")
+  const lastName = useInput("")
+  const phone = useInput("")
+  const email = useInput("")
+  const password = useInput("")
 
+  const firstNameValue = firstName.value
+  const lastNameValue = lastName.value
+  const phoneNumberValue = phone.value
+  const emailValue = email.value
+  const passwordValue = password.value
 
+  const dispatch = useAppDispatch()
+  const {userAuth} = useAppSelector(state => state.auth)
+  
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (userAuth) {
+      navigate("/")
+    }
+  }, [userAuth])
 
   const genPassword = (e:any) => {
     e.preventDefault()
@@ -78,11 +71,6 @@ const Registrtion:React.FC<propsRegistrtion> =
     setPasswordDirty(false)
     setPasswordVisibility(true)
 
-  }
-
-  const closeModalWindow = ():void => {
-    setSigInWindowLog(false)
-    setRegWin(false)
   }
 
   const validatePhoneNumber = ():void => {
@@ -131,7 +119,7 @@ const Registrtion:React.FC<propsRegistrtion> =
         phoneNumberValue,
         emailValue,
         passwordValue}))
-      setSigInWindowLog(false)
+        // dispatch(setModalWindow(false))
     } else {
       e.preventDefault()
       setRegistrationErrorText("Введите все данные корректно и подтвердите пользовательское соглашение")
@@ -140,7 +128,9 @@ const Registrtion:React.FC<propsRegistrtion> =
   }
 
   return (
-    <div className='modalWindow'>
+    <main>
+      <div className="container">
+      <div className='auth-window'>
       <h1 className='title'>Регистрация</h1>
       <div className='form'>
         <form action='#' className='form__checkout'>
@@ -213,17 +203,21 @@ const Registrtion:React.FC<propsRegistrtion> =
               <input onClick={(e) => checkSecurityPolicy(e)} id="checkAccept" className="checkbox" type="checkbox" />
               <label className="checkbox__title" htmlFor="checkAccept">
                 Я согласен с
-                <Link onClick={() => closeModalWindow()} to={"/security-policy"} className='orng'> условиями обработки персональных данных</Link>
+                <Link to={"/security-policy"} className='orng'> условиями обработки персональных данных</Link>
               </label>
             </div>
           </div>
           <div className='checkout'>
+          <Link to="/login">Авторизация</Link>
             {registrationError || <div style={{ color: "red", fontSize: "12px" }}>{registrationErrorText}</div>}
             <button className='checkout__btn' type="submit" onClick={(e) => registration(e)}>Зарегистрироваться</button>
           </div>
         </form>
       </div >
     </div >
+      </div>
+    </main>
   )
 }
-export default Registrtion
+
+export default Registrarion

@@ -39,7 +39,7 @@ const ProductList = () => {
 
 
   const pageTitle = products.filter(item => item.src === src).map(el => el.name)
-
+  console.log(pageTitle)
   const filtredKabel = cables.filter(item => {
     return item.name.toLowerCase().includes(searchValue.value.toLowerCase())
   }).sort(function (a, b) {

@@ -7,28 +7,14 @@ import BreadCrumbs from '../../Components/BreadCrumbs/BreadCrumbs';
 import PageTitle from '../../Components/PageTitle';
 import CartItem from './CartItem';
 
-interface propsCart{
-  signWindowLog:boolean,
-  setSigInWindowLog:React.Dispatch<React.SetStateAction<boolean>>,
-}
 
-const Cart:React.FC<propsCart> = ({ setSigInWindowLog, signWindowLog })=> {
+
+const Cart:React.FC = ()=> {
 
   const {cartItems,cartTotalPrice} = useAppSelector(state => state.cart)
-  const {userAuth} = useAppSelector(state => state.auth)
-  const dispatch = useAppDispatch()
-  
-  const navigate = useNavigate()
 
-  const checkout = () => {  
-  
-    if (userAuth) {
-      navigate("/checkout")
-    }else{
-      setSigInWindowLog(true)
-      console.log(signWindowLog)
-    }
-  }
+  const dispatch = useAppDispatch()
+
   return (
     <main>
       <div className="container">
@@ -63,9 +49,9 @@ const Cart:React.FC<propsCart> = ({ setSigInWindowLog, signWindowLog })=> {
             <div className='order__info'>
               <div className='ordder'>
                 <h3 className='total-price'>Общая стоимсоть <span className='orng'>{cartTotalPrice}₽</span></h3>
-                <button className='place-order__btn' onClick={() => checkout()}>
+                <Link to="/checkout" className='place-order__btn'>
                   Оформить заказ
-                </button>
+                </Link>
               </div>
               <button className='empty-cart-btn' onClick={() => dispatch(emptyCart())}>
                 Очистить корзину
@@ -74,7 +60,6 @@ const Cart:React.FC<propsCart> = ({ setSigInWindowLog, signWindowLog })=> {
             :
             null
           }
-
         </div>
       </div>
     </main>

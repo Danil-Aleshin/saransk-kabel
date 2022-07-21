@@ -7,12 +7,6 @@ const SwitchThemeBtn = () => {
 
   const currentTheme = useAppSelector(state => state.theme.theme)
   const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', currentTheme)
-
-  }, [currentTheme])
-
   
   return (
     <div

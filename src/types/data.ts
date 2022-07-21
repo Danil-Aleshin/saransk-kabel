@@ -28,7 +28,7 @@ export interface IProductsItem{
 }
 
 export interface IUserInfo{
-  userId: string | null,
+  userId: string,
   email: string | null,
   password:string | null,
   firstName: string | null,

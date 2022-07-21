@@ -1,26 +1,4 @@
-
-.overlay{
-  overflow: auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.4);
-  width: 100%;
-  height: 100vh;
-  z-index: 20;
-  opacity: 0;
-  pointer-events: none;
-  transition: .3s ease-in-out;
-
-  &.active{
-    opacity: 1;
-    pointer-events: all;
-  }
-  &.active .modalWindow{
-  transform: translate(-50%,-50%);
-  }
-}
-.modalWindow{
+.auth-window{
   transition: .3s ease-in-out;
   width: 400px;
   border-radius: 25px;
@@ -28,9 +6,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  background: #424242;
   padding: 15px;
   overflow: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 
   .title{
     font-weight:600 ;
@@ -44,29 +22,6 @@
     flex-direction: column;
     gap: 15px;
     align-items:flex-start;
-  }
-  .form__input{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    label{
-      position: absolute;
-      color: #fcb500;
-      font-size: 12px;
-      top: 5px;
-      left: 11px;
-    }
-    input{
-      border-radius: 10px;
-      height: 50px;
-      background: #424242;
-      border:1px solid #c4c4c4;
-      transition: all .3s;
-      outline:none;
-      color: #ffffff;
-      padding: 20px 0px 0px 10px;
-    }
   }
   .checkout{
     width: 100%;
@@ -122,12 +77,12 @@
   
 }
 @media (max-width: 424px){
-  .modalWindow{
+  .auth-window{
     width: 350px;
 }
 }
 @media (max-width: 374px){
-  .modalWindow{
+  .auth-window{
     width: 300px;
 }
 }

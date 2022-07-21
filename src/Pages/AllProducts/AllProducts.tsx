@@ -3,10 +3,15 @@ import { useAppSelector } from "../../hooks/appRedux";
 import PageTitle from "../../Components/PageTitle";
 import AllProductsCard from "../../Components/AllProductsCard/AllProductsCard";
 import BreadCrumbs from "../../Components/BreadCrumbs/BreadCrumbs";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "../../store/ProductsSlice";
 
 
 const AllProducts:React.FC = ()=> {
+
   const { products } = useAppSelector(state => state.products)
+  
   return (
     <main>
       <div className="container">
@@ -18,7 +23,7 @@ const AllProducts:React.FC = ()=> {
           }
         </div>
       </div>
-    </main>
+  </main>
   )
 }
 

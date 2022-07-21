@@ -1,0 +1,23 @@
+.form__input{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  label{
+    position: absolute;
+    color: #fcb500;
+    font-size: 12px;
+    top: 5px;
+    left: 11px;
+  }
+  input{
+    border-radius: 10px;
+    height: 50px;
+    background: var(--background-color);
+    border:1px solid #c4c4c4;
+    transition: all .3s;
+    outline:none;
+    color: var(--text-color);
+    padding: 20px 0px 0px 10px;
+  }
+}

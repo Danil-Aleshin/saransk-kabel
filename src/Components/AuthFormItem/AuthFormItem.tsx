@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-
+import './AuthFormItem.scss'
 
 interface propsAuthFormItem{
   label:string,

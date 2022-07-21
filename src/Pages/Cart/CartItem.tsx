@@ -1,8 +1,8 @@
 import { memo, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
-import { useAppDispatch } from "../../hooks/appRedux"
-import { changeCartTotalPrice, changeLength, removeCartItem } from "../../store/CartSlice"
+import { useAppDispatch, useAppSelector } from "../../hooks/appRedux"
+import { changeCartTotalPrice, changeLength, removeCartItem, reqDeleteCartItem } from "../../store/CartSlice"
 import ChangeValueForm from "../../Components/ChangeValueForm/ChangeValueForm"
 import './CartItem.scss'
 
@@ -20,17 +20,22 @@ const CartItem:React.FC<propsCartItem> = ({ name, img, meters, totalPrice, id, i
   const [newLength, setNewLength] = useState(meters)
 
   const dispatch = useAppDispatch()
+  const user = useAppSelector(state => state.auth)
 
   useEffect(() => {
     dispatch(changeLength({ id, newLength }))
     setNewLength(Math.max(newLength, 1))
-    dispatch(changeCartTotalPrice())
+    dispatch(changeCartTotalPrice()) 
   }, [newLength])
 
 
   const removeItem = () => {
-    dispatch(removeCartItem(index))
-    dispatch(changeCartTotalPrice())
+    const userId = user.userInfo.userId
+    if (user.userAuth) {
+      dispatch(reqDeleteCartItem({userId,index}))
+    }else{
+      dispatch(removeCartItem(index))
+    }
   }
 
   return (

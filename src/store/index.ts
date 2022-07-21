@@ -3,6 +3,7 @@ import productsReducer from "./ProductsSlice"
 import themeReducer from './ThemeSlice'
 import cartReducer from "./CartSlice"
 import authenticationReducer from './AuthenticationSlice'
+
 import {
   persistStore,
   persistReducer,
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   theme: themeReducer,
   auth:authenticationReducer,
 })
+
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 

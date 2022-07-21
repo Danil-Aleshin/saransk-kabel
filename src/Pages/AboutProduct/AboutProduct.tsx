@@ -4,7 +4,7 @@ import BreadCrumbs from "../../Components/BreadCrumbs/BreadCrumbs"
 import ChangeValueForm from "../../Components/ChangeValueForm/ChangeValueForm"
 import PageTitle from "../../Components/PageTitle"
 import { useAppDispatch, useAppSelector } from "../../hooks/appRedux"
-import { addToCart, changeCartTotalPrice } from "../../store/CartSlice"
+import { addToCart, changeCartTotalPrice, reqAddCartItem } from "../../store/CartSlice"
 import { ICartItem, IProductsItem } from "../../types/data"
 import './AboutProduct.scss'
 
@@ -30,13 +30,15 @@ const AboutProduct = () => {
 
   const dispatch = useAppDispatch()
   const {products} = useAppSelector(state => state.products)
+  const user = useAppSelector(state => state.auth)
 
   const { src } = useParams()
+  const location = useLocation()
 
   useEffect(() => {
     setLength(Math.max(length, 1))
   }, [length])
-  const location = useLocation()
+  
   useEffect(() => {
     products.map(el => {
       el.items.map(item => {
@@ -54,12 +56,18 @@ const AboutProduct = () => {
     })
   }, [products, location.pathname])
 
-  const addItem = (metersValue:number) => {
+  const addCartItem = (metersValue:number) => {
     const cartItem:ICartItem = Object.assign({
       meters: Number(metersValue),
       totalPrice: cabelObj.pricePerM * metersValue,
     }, cabelObj)
-    dispatch(addToCart(cartItem))
+
+    if(user.userAuth){
+      const userId = user.userInfo.userId
+      dispatch(reqAddCartItem({cartItem,userId}))
+    }else{
+      dispatch(addToCart(cartItem))
+    }
     dispatch(changeCartTotalPrice())
     setLength(1)
   }
@@ -83,7 +91,7 @@ const AboutProduct = () => {
                   <label htmlFor="lenght">Длина(м)</label>
                   <ChangeValueForm value={length} setValue={setLength} />
                 </div>
-                <a className="add-product" onClick={() => addItem(length)}>
+                <a className="add-product" onClick={() => addCartItem(length)}>
                   <p>В корзину</p>
                   <img src="/img/icons/cart-icon-white.png" width={16} alt="" />
                 </a>

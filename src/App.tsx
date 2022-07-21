@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from './hooks/appRedux';
 //components
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
-import SigIn from './Components/SigIn/Authentication';
 import Preloader from './Components/Preloader/Preloader'
 //pages
 import Requisites from './Pages/Requisites/Requisites';
@@ -27,40 +26,46 @@ import Offices from './Pages/Offices/Offices';
 import History from './Pages/History/History';
 import  Сertificates from "./Pages/Сertificates/Сertificates";
 import Profile from './Pages/Profile/Profile';
+import RequireAuth from './Components/Hoc/RequireAuth';
+import ModalWindow from './Components/ModalWindow/ModalWindow';
+import Authentication from './Pages/Authentication/Authentication';
+import Registrarion from './Pages/Authentication/Registrarion';
+import { getUserCart } from './store/CartSlice';
 
 const App:React.FC = () => {
-  const [sigInWindowLog, setSigInWindowLog] = useState(false)
 
   const dispatch = useAppDispatch()
   const { loading } = useAppSelector(state => state.products)
+  const currentTheme = useAppSelector(state => state.theme.theme)
+  const {userId} = useAppSelector(state => state.auth.userInfo)
   const location = useLocation()
 
   useEffect(() => {
-
     dispatch(fetchProducts())
-
+    dispatch(getUserCart(userId))
   }, [])
 
   useEffect(() => {
-
     window.scroll(0, 0)
-
   }, [location.pathname])
+  
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', currentTheme)
+  }, [currentTheme])
 
 
   return (
     <div className="App">
-      <Preloader />
+      <Preloader loadingParams={loading} />
       {
         loading ? null :
           <>
-            <SigIn setSigInWindowLog={setSigInWindowLog} sigInWindowLog={sigInWindowLog} />
-            <Header setSigInWindowLog={setSigInWindowLog} />
-            {/* js */}
+          <Header />
             <Routes>
+              <Route path='login' element={<Authentication />} />
+              <Route path='registration' element={<Registrarion />} />
               <Route path='/' element={<Home />} />
-              <Route path='/cart'
-                element={<Cart setSigInWindowLog={setSigInWindowLog} signWindowLog={sigInWindowLog} />} />
+              <Route path='/cart'element={<Cart/>} />
               <Route path='products' element={<AllProducts />} />
               <Route path='products/:src' element={<ProductList />} />
               <Route path='products/:src/:src' element={<AboutProduct />} />
@@ -74,8 +79,14 @@ const App:React.FC = () => {
               <Route path='documents' element={<Documents />} />
               <Route path='stock' element={<Stock />} />
               <Route path='vacancies' element={<Vacancies />} />
-              <Route path='profile' element={<Profile />} />
               <Route path='*' element={<NotFoundPage />} />
+
+              //private route
+              <Route path='profile' element={
+                <RequireAuth>
+                  <Profile />
+                </RequireAuth>
+              } />
             </Routes>
             <Footer />
           </>

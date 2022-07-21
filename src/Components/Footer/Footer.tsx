@@ -1,11 +1,13 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import "./Footer.scss"
 function Footer() {
   const [stateSecurityPolicy, setStateSecurityPolicy] = useState(false)
   const [possibilitySubscribe, setPossibilitySubscribe] = useState(true)
   const [subscribeError, setSubscribeError] = useState("")
 
+  const location = useLocation()
+  
   const checkSecurityPolicy:React.ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.checked) {
       setStateSecurityPolicy(true)
@@ -25,6 +27,10 @@ function Footer() {
       setPossibilitySubscribe(false)
       setSubscribeError("Подтвердите согласие на обработку персональных данных")
     }
+  }
+
+  if (location.pathname === "/login" || location.pathname === "/registration") {
+    return null
   }
   return (
     <footer>
