@@ -2,44 +2,31 @@ import React, { useState, useEffect } from "react"
 import ProductCard from "./ProductCard"
 import './ProductList.scss'
 import { useLocation, useParams } from 'react-router-dom'
-import { useSelector } from "react-redux"
-import { arrayUnion, doc, onSnapshot, updateDoc } from "firebase/firestore"
-import { db } from "../../firebaseCofig"
 import BreadCrumbs from "../../Components/BreadCrumbs/BreadCrumbs"
 import PageTitle from "../../Components/PageTitle"
 import useInput from "../../hooks/useInput"
 import SearchInput from "../../Components/SearchInput/SearchInput"
+import { useAppSelector } from "../../hooks/appRedux"
+import {IProductsItem } from "../../types/data"
 
-const ProductList = () => {
-  const { src } = useParams()
-  const products = useSelector(state => state.products.products)
+const ProductList:React.FC = () => {
+  const [cables, setCables] = useState<IProductsItem[]>([])
+
+  const products = useAppSelector(state => state.products.products)
+
   const searchValue = useInput()
-  const [cables, setCables] = useState([])
+
+  const { src } = useParams()
   const location = useLocation()
+
   useEffect(() => {
-    const Allcables = products.filter(item => item.src === src).flatMap(item => item.items)
+    const Allcables:IProductsItem[] = products.filter(item => item.src === src).flatMap(item => item.items)
     setCables(Allcables)
-    // const addLogins = async (e) =>{
-
-    //   try {
-    //     const docRef = doc(db,"products", "cables");
-    //     products.map(item=>{
-    //       updateDoc(docRef,{
-    //         arr: arrayUnion(item)
-    //       });
-    //     })
-
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-
-    // }
-    // // addLogins()
   }, [products, location.pathname])
 
 
-  const pageTitle = products.filter(item => item.src === src).map(el => el.name)
-  console.log(pageTitle)
+  const pageTitle:string = products.filter(item => item.src === src).map(el => el.name).join("")
+
   const filtredKabel = cables.filter(item => {
     return item.name.toLowerCase().includes(searchValue.value.toLowerCase())
   }).sort(function (a, b) {
@@ -50,12 +37,18 @@ const ProductList = () => {
   return (
     <main>
       <div className="container">
-        <PageTitle text={searchValue ? "Поиск: " + searchValue : pageTitle} />
+        <PageTitle text={searchValue.value ? "Поиск: " + searchValue.value :pageTitle} />
         <BreadCrumbs />
         <SearchInput searchValue={searchValue.value} setSearchValue={searchValue.setValue} />
         <ul className="product__list">
           {filtredKabel.length > 0 ?
-            filtredKabel.map(item => <ProductCard key={item.id} {...item} />)
+            filtredKabel.map(item => <ProductCard key={item.id} 
+                img={item.img}
+                gost={item.gost}
+                name={item.name}
+                src={item.src}
+                status={item.status}
+              />)
             :
             <div className="missing-products">
               <img className="missing-products__img" width={200} src="/img/icons/smart.png" alt="" />

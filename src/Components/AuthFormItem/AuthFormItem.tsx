@@ -16,7 +16,7 @@ interface propsAuthFormItem{
 const AuthFormItem:React.FC<propsAuthFormItem> = 
   memo(({label,id,name,placeholder,type,value,onChange,onBlur,children}) => {
   return (
-    <div className='form__input'>
+    <div className='auth__form__input'>
     <label htmlFor={id}>{label}</label>
     <input
       value={value}

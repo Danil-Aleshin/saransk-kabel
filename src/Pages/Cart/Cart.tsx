@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { emptyCart } from '../../store/CartSlice'
+import { emptyCart, reqEmptyCart } from '../../store/CartSlice'
 import './Cart.scss'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/appRedux';
@@ -9,12 +8,29 @@ import CartItem from './CartItem';
 
 
 
+
 const Cart:React.FC = ()=> {
 
-  const {cartItems,cartTotalPrice} = useAppSelector(state => state.cart)
-
+  const {cartItems,cartTotalPrice, error,status} = useAppSelector(state => state.cart)
+  const user = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
 
+  const navigate = useNavigate()
+
+  const emptyCartFunc = (userId:string) =>{
+    if (user.userAuth) {
+      dispatch(reqEmptyCart(userId))
+    }else{
+      dispatch(emptyCart())
+    }
+  }
+  const checkoutOrder = () =>{
+    if (cartTotalPrice < 1000) {
+      alert("Доставка осуществляется от 1000р.")
+    }else{
+      navigate("/checkout-order")
+    }
+  }
   return (
     <main>
       <div className="container">
@@ -31,7 +47,7 @@ const Cart:React.FC = ()=> {
                 meters={item.meters}
                 totalPrice={item.totalPrice}
                 id={item.id}
-                locPath = {item.srcNav}
+                locPath = {item.path}
                 pricePerM ={item.pricePerM}
                 index={index} 
               />)
@@ -49,11 +65,11 @@ const Cart:React.FC = ()=> {
             <div className='order__info'>
               <div className='ordder'>
                 <h3 className='total-price'>Общая стоимсоть <span className='orng'>{cartTotalPrice}₽</span></h3>
-                <Link to="/checkout" className='place-order__btn'>
+                <button onClick={()=> checkoutOrder()} className='checkout-order__btn'>
                   Оформить заказ
-                </Link>
+                </button>
               </div>
-              <button className='empty-cart-btn' onClick={() => dispatch(emptyCart())}>
+              <button className='empty-cart-btn' onClick={() => emptyCartFunc(user.userInfo.userId)}>
                 Очистить корзину
               </button>
             </div>

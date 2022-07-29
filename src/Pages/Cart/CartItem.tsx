@@ -2,8 +2,7 @@ import { memo, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../hooks/appRedux"
-import { changeCartTotalPrice, changeLength, removeCartItem, reqDeleteCartItem } from "../../store/CartSlice"
-import ChangeValueForm from "../../Components/ChangeValueForm/ChangeValueForm"
+import { changeCartTotalPrice, changeLength, removeCartItem, reqChangeLength, reqDeleteCartItem } from "../../store/CartSlice"
 import './CartItem.scss'
 
 interface propsCartItem{
@@ -22,22 +21,21 @@ const CartItem:React.FC<propsCartItem> = ({ name, img, meters, totalPrice, id, i
   const dispatch = useAppDispatch()
   const user = useAppSelector(state => state.auth)
 
-  useEffect(() => {
-    dispatch(changeLength({ id, newLength }))
-    setNewLength(Math.max(newLength, 1))
-    dispatch(changeCartTotalPrice()) 
-  }, [newLength])
-
-
-  const removeItem = () => {
-    const userId = user.userInfo.userId
+  const removeItem = (userId:string) => {
     if (user.userAuth) {
-      dispatch(reqDeleteCartItem({userId,index}))
+      dispatch(reqDeleteCartItem({userId,id}))
     }else{
       dispatch(removeCartItem(index))
     }
   }
-
+  const changeM = (userId:string) =>{
+    if (user.userAuth) {
+      dispatch(reqChangeLength({id,userId,newLength}))
+    }else{
+      dispatch(changeLength({ id, newLength }))
+    }
+    setNewLength(Math.max(newLength, 1))
+  }
   return (
     <div className="cart__item">
       <Link to={locPath} className='leftBlock'>
@@ -47,11 +45,20 @@ const CartItem:React.FC<propsCartItem> = ({ name, img, meters, totalPrice, id, i
         </div>
       </Link>
       <p className='pricePerM'>{pricePerM} ₽/м</p>
-      <div className='changeMeters'>
-        <ChangeValueForm value={newLength} setValue={setNewLength} />
+        <div className='changeMeters'>
+          <input
+          id="lenght"
+          min={1}
+          type="number"
+          value={newLength}
+          onChange={(e) => setNewLength(Number(e.target.value))}
+          className="lenght"
+          onBlur={()=>changeM(user.userInfo.userId)}
+        />
+        <p>Длина(м)</p>
       </div>
       <div className="sum">{totalPrice > 99999999 ? 99999999 + "...₽" : totalPrice + "₽"}</div>
-      <button className='remove__btn' onClick={() => removeItem()}>
+      <button className='remove__btn' onClick={() => removeItem(user.userInfo.userId)}>
         <svg className='remove__icon' xmlns="http://www.w3.org/2000/svg" version="1.0" width="20" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
           <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
             <path d="M2032 5101 c-66 -23 -126 -79 -158 -146 -22 -47 -24 -61 -24 -237 l0 -188 -498 0 c-547 0 -559 -1 -640 -60 -73 -53 -97 -98 -173 -328 -62 -189 -71 -223 -66 -268 7 -65 36 -122 83 -164 54 -47 97 -62 196 -68 l87 -5 6 -41 c3 -22 61 -743 130 -1601 69 -858 130 -1585 135 -1615 31 -179 188 -335 369 -370 34 -6 433 -10 1110 -10 881 0 1067 3 1124 15 81 17 170 68 233 134 47 48 107 161 118 221 6 32 266 3212 266 3253 0 13 9 17 43 17 82 0 147 27 202 83 96 98 97 153 10 418 -71 214 -102 272 -173 326 -82 62 -93 63 -639 63 l-493 0 0 148 c0 82 -5 175 -11 208 -18 100 -83 179 -177 214 -50 19 -78 20 -530 20 -437 -1 -482 -2 -530 -19z m948 -426 l0 -145 -415 0 -415 0 0 145 0 145 415 0 415 0 0 -145z m1304 -583 c25 -75 46 -140 46 -145 0 -4 -796 -7 -1770 -7 -974 0 -1770 1 -1770 3 0 7 89 267 95 277 4 7 534 10 1680 10 l1673 0 46 -138z m-254 -464 c0 -7 -58 -732 -129 -1610 -96 -1180 -134 -1604 -144 -1625 -19 -36 -55 -69 -90 -82 -19 -8 -359 -11 -1081 -11 l-1052 0 -44 23 c-89 44 -73 -84 -214 1677 -69 861 -128 1582 -131 1603 l-5 37 1445 0 c1149 0 1445 -3 1445 -12z" />

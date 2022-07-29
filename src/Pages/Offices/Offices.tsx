@@ -1,43 +1,27 @@
 import "./Offices.scss"
-import React, { useEffect, useState } from 'react'
-import axios from "axios"
+import React, { useEffect} from 'react'
 import BreadCrumbs from "../../Components/BreadCrumbs/BreadCrumbs"
 import OfficeCard from "./OfficeCard"
+import { useAppDispatch, useAppSelector } from "../../hooks/appRedux"
+import { fetchOffices } from "../../store/OfficesSlice"
+import PageTitle from "../../Components/PageTitle"
 
-interface IOfficesCard{
-  id:number,
-  city:string, 
-  address:string, 
-  wMode:string, 
-  room?:string, 
-  rAddress?:string, 
-  rName?:string, 
-}
+const Offices:React.FC = () => {
+  
+  const {offices} = useAppSelector(state => state.offices)
+  const dispatch = useAppDispatch()
 
-const Offices:React.FC = ()=> {
-  const [officesList, setOfficesList] = useState<IOfficesCard[]>([])
-  useEffect(():any => {
-    let cleanupFunction = false;
-    async function fetchData() {
-      try {
-        const req = await axios.get('/officesDb.json')
-        if (!cleanupFunction) setOfficesList(req.data)
-      } catch (error:any) {
-        console.error(error.message)
-      }
-    }
-    fetchData()
-    return () => cleanupFunction = true;
+  useEffect(() => {
+    dispatch(fetchOffices())
   }, [])
+  
   return (
     <main>
       <div className="container">
-        <div className="page-title">
-          <h2>Офисы</h2>
-        </div>
+        <PageTitle text="Офисы"/>
         <BreadCrumbs />
         <div className="offices__list">
-          {officesList.map(item => <OfficeCard 
+          {offices.map(item => <OfficeCard 
             key={item.id} 
             city={item.city}
             address={item.address}

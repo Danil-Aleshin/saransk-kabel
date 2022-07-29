@@ -1,28 +1,22 @@
-import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import BreadCrumbs from "../../Components/BreadCrumbs/BreadCrumbs"
 import PageTitle from "../../Components/PageTitle"
+import { useAppDispatch, useAppSelector } from "../../hooks/appRedux"
+import { fetchCertificates } from "../../store/CertificatesSlice"
 import './Certificates.scss'
 
-const Сertificates = () => {
-  
-  const [certificates, setCertificates] = useState([])
+const Сertificates:React.FC = () => {
   const [modalWindowCertificates, setModalWindowCertificates] = useState(false)
   const [imgs, setImgs] = useState("")
+
+  const {certificates} = useAppSelector(state=> state.certificates)
+  const dispatch = useAppDispatch()
+
   useEffect(() => {
-    let cleanupFunction = false;
-    async function fetchData() {
-      try {
-        const req = await axios.get('/certificatesDB.json')
-        if (!cleanupFunction) setCertificates(req.data)
-      } catch (error) {
-        console.error(error.message)
-      }
-    }
-    fetchData()
-    return () => cleanupFunction = true;
+    dispatch(fetchCertificates())
   }, [])
+  
   useEffect(() => {
     if (modalWindowCertificates) {
       document.body.classList.add("lock")
@@ -30,11 +24,11 @@ const Сertificates = () => {
       document.body.classList.remove("lock")
     }
   }, [modalWindowCertificates])
-  const toggleModalWindow = (img) => {
+  const toggleModalWindow = (img:string) => {
     setModalWindowCertificates(true)
     setImgs(img)
   }
-  const close = e => {
+  const close = (e:any) => {
     const el = e.target
     if (el.className === "modal-window active__window") {
       setModalWindowCertificates(false)

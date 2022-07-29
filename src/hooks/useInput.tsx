@@ -2,7 +2,8 @@ import React, { memo, useMemo, useState } from 'react'
 
 interface useInputReturn{
   value:string,
-  onChange:(e:React.ChangeEvent<HTMLInputElement>)=>void,
+  onChange:(e:React.ChangeEvent<HTMLInputElement> | 
+    React.ChangeEvent<HTMLTextAreaElement>)=>void,
   setValue:React.Dispatch<React.SetStateAction<string>>
 }
 
@@ -10,7 +11,8 @@ const useInput = (initialState:string = ""):useInputReturn => {
 
   const [value,setValue] = useState(initialState)
 
-  const onChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+  const onChange = (e:React.ChangeEvent<HTMLInputElement> | 
+    React.ChangeEvent<HTMLTextAreaElement>) =>{
     setValue(e.target.value)
   }
 

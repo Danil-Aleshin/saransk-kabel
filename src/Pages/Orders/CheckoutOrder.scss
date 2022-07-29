@@ -1,0 +1,134 @@
+@import '../../Components/globalStyle.scss';
+
+.checkout-order{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  @media(max-width:$breakpoint__xl){
+    flex-direction: column;
+  }
+}
+.checkout-order__form{
+  width: 390px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  @media(max-width:424px){
+    width: 300px;
+    align-self: center;
+  }
+}
+.checkout-order__form__input{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  label{
+    position: absolute;
+    color: #fcb500;
+    font-size: 12px;
+    top: 5px;
+    left: 11px;
+  }
+  input{
+    width: 100%;
+    border-radius: 10px;
+    height: 50px;
+    background: var(--background-color);
+    border: 1px solid #c4c4c4;
+    transition: all .3s;
+    outline:none;
+    color: var(--text-color);
+    padding: 20px 0px 2px 10px;
+    font-size: 16px;
+  }
+  textarea{
+    border-radius: 10px;
+    min-height: 150px;
+    max-height: 400px;
+    max-width: 400px;
+    // min-width: 400px;
+    background: var(--background-color);
+    border: 1px solid #c4c4c4;  
+    outline:none;
+    color: var(--text-color);
+    padding: 10px 0px 2px 10px;
+    font-size: 16px;
+  }
+}
+.order-item__list{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 700px;
+  @media(max-width:$breakpoint__xl){
+    width: 100%;
+  }
+  @media(max-width:550px){
+    margin: 30px 0px 0px 0px;
+  }
+}
+.cart-item-in-order{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #fcb500;
+  .total-price{
+    color: #fcb500;
+  }
+  @media(max-width:550px){
+    flex-direction: column;
+  }
+}
+.order__item__img{
+  max-width: 100%;
+}
+//radio btn
+.options-order__item{
+  .options__radio{
+    display: none;
+  }
+  .radio__title{
+    cursor: pointer;
+    position: relative;
+    margin: 0px 0px 0px 14px;
+    font-size: 16px;
+    &::before,&::after{
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+    &::before{
+      width: 14px;
+      height: 14px;
+      top: 1px;
+      left: -18px;
+      background: white;
+    }
+    &::after{
+      background: linear-gradient(#fcb500, #e8aa31);
+      width: 10px;
+      height: 10px;
+      left: -16px;
+      top: 3px;
+      transition: transform .4s ease-in-out;
+      transform: scale(0);
+    }
+
+  }
+}
+.options__radio:checked + 
+.radio__title::after {
+  transform: scale(1);
+}
+
+.checkout__btn{
+  margin: 30px 0px 30px 0px;
+  @include button-link;
+  border: none;
+  @media(max-width:550px){
+    display: block;
+    margin: 30px auto 30px auto;
+  }
+}

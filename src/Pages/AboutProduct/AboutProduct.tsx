@@ -18,7 +18,7 @@ const AboutProduct = () => {
     id:0,
     name:"",
     src:"",
-    srcNav:"",
+    path:"",
     gost:"",
     pricePerM:0,
     status:false,

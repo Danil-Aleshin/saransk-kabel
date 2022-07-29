@@ -1,0 +1,44 @@
+@import '../../Components/globalStyle.scss';
+
+.profile{
+  display: flex;
+  justify-content: space-evenly;
+  @media(max-width:$breakpoint__xl){
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.user-info{
+  display: flex;
+  gap: 13px;
+  flex-direction: column;
+}
+.logout__btn{
+  border: none;
+  @include button-link;
+  width: 250px;
+}
+.orders__list{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.profile-order__item{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-width: 460px;
+  border-bottom: 1px solid #fcb500;
+  padding: 10px 0px 15px 0px;
+
+  &.order--received{
+    opacity: 0.4;
+  }
+}
+.product-list-in-placed-order{
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  align-items: center;
+
+}

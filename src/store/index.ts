@@ -1,9 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
-import productsReducer from "./ProductsSlice"
-import themeReducer from './ThemeSlice'
-import cartReducer from "./CartSlice"
-import authenticationReducer from './AuthenticationSlice'
-
+import storage from 'redux-persist/lib/storage'
 import {
   persistStore,
   persistReducer,
@@ -15,19 +11,30 @@ import {
   REGISTER,
 } from 'redux-persist'
 
-import storage from 'redux-persist/lib/storage'
+import CertificatesReducer from "./CertificatesSlice"
+import QualityPolicyReducer from "./QualityPolicySlice"
+import productsReducer from "./ProductsSlice"
+import themeReducer from './ThemeSlice'
+import cartReducer from "./CartSlice"
+import authenticationReducer from './AuthenticationSlice'
+import OfficesReducer from "./OfficesSlice"
+import OrdersReducer from "./OrdersSlice"
 
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ["products","cart"]
+  blacklist: ["products","cart","certificates","qualityPolicy","offices","orders"]
 }
 const rootReducer = combineReducers({
   products: productsReducer,
   cart: cartReducer,
+  orders:OrdersReducer,
   theme: themeReducer,
   auth:authenticationReducer,
+  certificates:CertificatesReducer,
+  qualityPolicy:QualityPolicyReducer,
+  offices:OfficesReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

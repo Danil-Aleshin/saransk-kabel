@@ -1,28 +1,25 @@
-import axios from "axios"
-import { HTMLAttributes, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
 import { Link } from "react-router-dom"
 import BreadCrumbs from "../Components/BreadCrumbs/BreadCrumbs"
 import PageTitle from "../Components/PageTitle"
+import { useAppSelector } from "../hooks/appRedux"
+import { fetchQualityPolicy } from "../store/QualityPolicySlice"
+
 import './Сertificates/Certificates.scss'
 
 const QualityPolicy:React.FC = ()=> {
-  const [qualityPolicy, setQualityPolicy] = useState([])
+
   const [modalWindowCertificates, setModalWindowCertificates] = useState(false)
   const [imgs, setImgs] = useState("")
-  
-  useEffect(():any => {
-    let cleanupFunction = false;
-    async function fetchData() {
-      try {
-        const req = await axios.get('/qualityPolicyDB.json')
-        if (!cleanupFunction) setQualityPolicy(req.data)
-      } catch (error:any) {
-        console.error(error.message)
-      }
-    }
-    fetchData()
-    return () => cleanupFunction = true;
+
+  const {qualityPolicy} = useAppSelector(state => state.qualityPolicy)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchQualityPolicy())
   }, [])
+  
   useEffect(() => {
     if (modalWindowCertificates) {
       document.body.classList.add("lock")

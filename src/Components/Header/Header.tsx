@@ -57,7 +57,7 @@ const Header:React.FC = memo(() => {
               <img width="100%" src={screenWidth < 425 ? "/img/logo-small.png" : "/img/logo-black-theme.png"} alt="" />
             </Link>
 
-            {screenWidth < 768 ?
+            {screenWidth < 800 ?
               <NavMobile menuState={menuState} setMenuState={setMenuState} product={products} />
               :
               <NavDesktop product={products} />}
@@ -79,7 +79,7 @@ const Header:React.FC = memo(() => {
                 </svg>
                 <span>{userAuth ? userInfo.firstName + " " + userInfo.lastName : "Войти"}</span>
               </Link>
-              {screenWidth < 768 &&
+              {screenWidth < 800 &&
                 <div
                   className={menuState ? "header__burger active" : "header__burger"}
                   onClick={() => setMenuState(!menuState)}

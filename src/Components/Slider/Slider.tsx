@@ -5,7 +5,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination'
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay, } from 'swiper';
 import { Link } from 'react-router-dom';
-function Slider() {
+
+const Slider:React.FC = () => {
   return (
     <div className='main-slider'>
       <Swiper

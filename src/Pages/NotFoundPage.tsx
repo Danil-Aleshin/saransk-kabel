@@ -1,5 +1,7 @@
-const NotFoundPage = () => {
-  const styles = {
+import CSS from "csstype"
+
+const NotFoundPage:React.FC = () => {
+  const styles:CSS.Properties = {
     color: "#fcb500",
     position: "absolute",
     top: "50%",

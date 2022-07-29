@@ -6,7 +6,7 @@ interface propsProductCard{
   gost:string,
   name:string,
   src:string,
-  status:string
+  status:boolean
 }
 
 const ProductCard:React.FC<propsProductCard> = ({ img, gost, name, src, status }) => {

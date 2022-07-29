@@ -3,7 +3,7 @@ import { TypeSetState } from '../../types/data'
 
 interface propsChangeValueForm{
   value:number,
-  setValue:TypeSetState<number>
+  setValue:TypeSetState<number>,
 }
 
 const ChangeValueForm:React.FC<propsChangeValueForm> = memo(({value,setValue}) => {
