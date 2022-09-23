@@ -80,7 +80,7 @@ const CheckoutOrder:React.FC = () => {
             />)}
           </ul>
         </div>
-        <button className="checkout__btn" onClick={()=>checkoutOrder(user.userInfo.userId)}>
+        <button className="checkout-oreder__btn" onClick={()=>checkoutOrder(user.userInfo.userId)}>
           Заказать
         </button>
       </div>

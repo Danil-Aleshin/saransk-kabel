@@ -80,7 +80,9 @@ const Authentication:React.FC = () => {
                 </div>
               </div>
               <div className='checkout'>
-                {status === "auth/invalid-email" && <div style={{ color: "red", fontSize: "12px", textAlign: "center" }}>{"Неверный логин   или пароль :("}</div>}
+                {status === "auth/invalid-email" && <div style={{ color: "red", fontSize: "12px", textAlign: "center" }}>{"Неверный логин или пароль :("}</div>}
+                {status === "auth/user-not-found" && <div style={{ color: "red", fontSize: "12px", textAlign: "center" }}>{"Неверный логин или пароль :("}</div>}
+                {status === "auth/wrong-password" && <div style={{ color: "red", fontSize: "12px", textAlign: "center" }}>{"Неверный логин или пароль :("}</div>}
                 <Link to="/">На главную странрицу</Link>
                 <Link to="#">Забыли пароль?</Link>
                 <button className='checkout__btn' type='submit' onClick={(e) => auth(e)}>Войти</button>

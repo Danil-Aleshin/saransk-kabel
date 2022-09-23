@@ -122,8 +122,7 @@
 .radio__title::after {
   transform: scale(1);
 }
-
-.checkout__btn{
+.checkout-oreder__btn{
   margin: 30px 0px 30px 0px;
   @include button-link;
   border: none;

@@ -14,18 +14,16 @@ const App:React.FC = () => {
   const dispatch = useAppDispatch()
   const { loading } = useAppSelector(state => state.products)
   const currentTheme = useAppSelector(state => state.theme.theme)
-  const {userId} = useAppSelector(state => state.auth.userInfo)
+  const {userAuth,userId} = useAppSelector(state => state.auth)
   const location = useLocation()
 
   useEffect(() => {
-    dispatch(fetchProducts())
+    if (userAuth) {
+      dispatch(fetchProducts())
     dispatch(getUserCart(userId))
-    // async function z (){
-    //   const products = await axios.get("/db.json")
-    //   a(products.data)
-    // }
-    // z()
-  }, [])
+    }
+    
+  }, [userAuth])
 
   useEffect(() => {
     window.scroll(0, 0)
@@ -35,12 +33,6 @@ const App:React.FC = () => {
     document.documentElement.setAttribute('data-theme', currentTheme)
   }, [currentTheme])
 
-  // const a = async (b:any) =>{
-  //   const docRef = doc(db,"products", "cables");
-  //   await updateDoc(docRef,{
-  //     arr:b
-  //   });
-  // }
 
   return (
     <div className="App">

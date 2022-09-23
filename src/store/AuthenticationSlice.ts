@@ -10,6 +10,7 @@ interface stateAuthentication{
   loading:boolean,
   error:boolean,
   status:string | undefined,
+  userId:string,
 }
 
 interface propsFetchAuthentication{
@@ -27,10 +28,12 @@ interface propsFetchRegistration{
 //state
 const initialState:stateAuthentication = {
   userInfo:{} as IUserInfo,
+  userId:"",
   userAuth: false,
   loading:false,
   error:false,
   status:"",
+
 }
 
 //authentication
@@ -126,6 +129,7 @@ const AuthenticationSlice = createSlice({
       })
       .addCase(fetchAuthentication.fulfilled,(state,action:PayloadAction<IUserInfo>)=>{
         state.userInfo = action.payload
+        state.userId = action.payload.userId
         state.userAuth = true
         state.loading = false
         state.status = "fetchAuthentication fulfield"
