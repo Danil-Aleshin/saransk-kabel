@@ -17,19 +17,21 @@ const NavMobile:React.FC<propsNavMobile> =
 ({ menuState, setMenuState, product = [] })=>{
 
   useEffect(() => {
-    document.addEventListener('mousedown', close)
-    return () => document.removeEventListener('mousedown', close)
+    document.addEventListener('click', close)
+    return () => document.removeEventListener('click', close)
   }, [])
 
   const navMenuRef = useRef<any>(null)
 
   const close = (e:any) => {
-    const el = e.target
-    if (!navMenuRef.current.contains(e.target)) {
+    
+    if (!navMenuRef.current.contains(e.target) 
+        && e.target.className !== "header__burger active"
+       ) {
       setMenuState(false)
     }
   }
-
+  
   const showMobileNavMenu = (e:any) => {
     const navItem = e.currentTarget.parentNode
     navItem.classList.toggle("active--nav-mobile__item")

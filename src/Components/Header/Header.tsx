@@ -46,7 +46,7 @@ const Header:React.FC = memo(() => {
   if (location.pathname === "/login" || location.pathname === "/registration") {
     return null
   }
-  console.log(menuState)
+
   return (
     <>
       <header>
