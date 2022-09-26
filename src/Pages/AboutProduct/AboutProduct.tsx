@@ -61,7 +61,7 @@ const AboutProduct = () => {
       meters: Number(metersValue),
       totalPrice: cabelObj.pricePerM * metersValue,
     }, cabelObj)
-
+    console.log("first")
     if(user.userAuth){
       const userId = user.userInfo.userId
       dispatch(reqAddCartItem({cartItem,userId}))

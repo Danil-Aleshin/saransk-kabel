@@ -119,7 +119,8 @@ const Registrarion:React.FC = () => {
         phoneNumberValue,
         emailValue,
         passwordValue}))
-        // dispatch(setModalWindow(false))
+        navigate("/login")
+
     } else {
       e.preventDefault()
       setRegistrationErrorText("Введите все данные корректно и подтвердите пользовательское соглашение")

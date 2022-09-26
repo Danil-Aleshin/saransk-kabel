@@ -145,7 +145,7 @@ const CartSlice = createSlice({
       if (!findItem) {
         state.cartItems.push(action.payload)
       } else {
-        state.cartItems.map((objCart)=>
+        state.cartItems = state.cartItems.map((objCart)=>
         objCart.id === action.payload.id 
         ?{ ...objCart, meters: objCart.meters + action.payload.meters, totalPrice: objCart.totalPrice + action.payload.totalPrice}
         : objCart

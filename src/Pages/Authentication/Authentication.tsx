@@ -18,9 +18,8 @@ const Authentication:React.FC = () => {
   const password = useInput("")
 
   const dispatch = useAppDispatch()
-  const {error,status,userAuth,userInfo} = useAppSelector(state => state.auth)
+  const {status,userAuth,userInfo} = useAppSelector(state => state.auth)
 
-  const location = useLocation()
   const navigate = useNavigate()
 
   useEffect(() => {

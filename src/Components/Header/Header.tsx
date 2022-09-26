@@ -40,14 +40,13 @@ const Header:React.FC = memo(() => {
 
   useEffect(() => {
     setMenuState(false)
-
   }, [location.pathname])
 
 
   if (location.pathname === "/login" || location.pathname === "/registration") {
     return null
   }
-
+  console.log(menuState)
   return (
     <>
       <header>

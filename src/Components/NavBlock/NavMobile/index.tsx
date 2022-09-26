@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { IProductsCategoryItem, TypeSetState } from '../../../types/data'
 import './NavMobile.scss'
@@ -21,13 +21,11 @@ const NavMobile:React.FC<propsNavMobile> =
     return () => document.removeEventListener('mousedown', close)
   }, [])
 
+  const navMenuRef = useRef<any>(null)
+
   const close = (e:any) => {
     const el = e.target
-    if (el.className !== "nav-mobile active--nav-movile"
-      && el.className !== "header__burger active"
-      && el.className !== "nav__item"
-      && el.className !== "arrow"
-    ) {
+    if (!navMenuRef.current.contains(e.target)) {
       setMenuState(false)
     }
   }
@@ -36,8 +34,10 @@ const NavMobile:React.FC<propsNavMobile> =
     const navItem = e.currentTarget.parentNode
     navItem.classList.toggle("active--nav-mobile__item")
   }
+
+  
   return (
-    <ul className={menuState ? "nav-mobile active--nav-movile" : "nav-mobile"}>
+    <ul ref={navMenuRef} className={menuState ? "nav-mobile active--nav-movile" : "nav-mobile"}>
       <li className="nav__item">
         <Link className="nav__link" to="/products ">Каталог товаров</Link>
         <span className="arrow" onClick={e => showMobileNavMenu(e)}></span>

@@ -12,9 +12,9 @@ interface propsAuthFormItem{
   onBlur?:()=>void,
   children?:JSX.Element
 }
-
 const AuthFormItem:React.FC<propsAuthFormItem> = 
   memo(({label,id,name,placeholder,type,value,onChange,onBlur,children}) => {
+
   return (
     <div className='auth__form__input'>
     <label htmlFor={id}>{label}</label>

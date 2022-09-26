@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react'
+import React, {useCallback, useState } from 'react'
 
 interface useInputReturn{
   value:string,
@@ -11,10 +11,10 @@ const useInput = (initialState:string = ""):useInputReturn => {
 
   const [value,setValue] = useState(initialState)
 
-  const onChange = (e:React.ChangeEvent<HTMLInputElement> | 
+  const onChange = useCallback((e:React.ChangeEvent<HTMLInputElement> | 
     React.ChangeEvent<HTMLTextAreaElement>) =>{
     setValue(e.target.value)
-  }
+  }, [])
 
   return {
     value,

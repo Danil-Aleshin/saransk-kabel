@@ -19,12 +19,15 @@ const App:React.FC = () => {
 
   useEffect(() => {
     if (userAuth) {
-      dispatch(fetchProducts())
-    dispatch(getUserCart(userId))
+      dispatch(getUserCart(userId))
     }
     
   }, [userAuth])
 
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [])
+  
   useEffect(() => {
     window.scroll(0, 0)
   }, [location.pathname])
